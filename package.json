@@ -1,0 +1,33 @@
+{
+  "name": "sliderizr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Kris Mackintosh",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "jspm": "^0.16.30",
+    "typings": "^0.6.8"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "src"
+    },
+    "configFile": "src/jspm.config.js",
+    "dependencies": {
+      "angular": "github:angular/bower-angular@^1.5.0",
+      "angular-animate": "github:angular/bower-angular-animate@^1.5.0",
+      "jquery": "npm:jquery@^2.2.1",
+      "lodash": "npm:lodash@^4.5.1",
+      "plugin-typescript": "github:frankwallis/plugin-typescript@^4.0.1",
+      "text": "github:systemjs/plugin-text@^0.0.7"
+    },
+    "devDependencies": {
+      "typescript": "npm:typescript@^1.6.2"
+    }
+  }
+}
