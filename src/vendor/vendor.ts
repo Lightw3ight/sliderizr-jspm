@@ -1,5 +1,4 @@
 import angular from 'angular';
-import * as _ from 'lodash';
 import 'angular-animate';
 var a = _;
 
