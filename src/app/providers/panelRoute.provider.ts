@@ -40,4 +40,4 @@ function factory(): ng.IServiceProvider {
 	return new PanelRouteProvider();
 }
 
-export default angular.module('sliderizr.panelRouteProvider', []).provider('panelRoute', factory);
+export default angular.module('sliderizr.panelRouteProvider', []).provider('panelRoute', function() { return new PanelRouteProvider(); });

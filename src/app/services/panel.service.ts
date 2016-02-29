@@ -1,5 +1,6 @@
+/// <reference path="../../../typings/main.d.ts" />
+
 import angular from 'angular';
-import * as _ from 'lodash';
 
 import IPanelService from 'IPanelService';
 import IOpenPanel from '../models/IOpenPanel';
@@ -40,13 +41,13 @@ export class PanelService implements IPanelService {
 	}
 
 	getActivePanel(): IPanelInstance<IRouteParams> {
-		var panel = <IOpenPanel>_.find(this.openPanels, (p) => { return p.panelScope.$active; });
+		var panel = this.openPanels.find(p => p.panelScope.$active);
 
 		return panel.instance;
 	}
 
 	getAllOpenPanels(): IPanelInstance<IRouteParams>[] {
-		return _.map(this.openPanels, (p: IOpenPanel) => { return p.instance; });
+		return this.openPanels.map(p => p.instance);
 	}
 
 	/**
@@ -409,7 +410,7 @@ export class PanelService implements IPanelService {
 
 		//If a parent is supplied, close its children, otherwise close all panels
 		if (parent) {
-			promises.push(this.closeChildren(_.find(this.openPanels, { instance: parent }), false));
+			promises.push(this.closeChildren(this.openPanels.find(p => p.instance === parent), false));
 		} else {
 			promises.push(this.closeAll());
 		}
@@ -437,7 +438,7 @@ export class PanelService implements IPanelService {
 
 		var parentPanel = this.getPanelByInstance(parent);
 
-		return _.find(this.openPanels, (p: IOpenPanel) => {
+		return this.openPanels.find(p => {
 			return ((options === p.instance.options || this.compareOptions(options, p.instance.options)) && p.parent == parentPanel);
 		});
 	}
@@ -574,7 +575,7 @@ export class PanelService implements IPanelService {
 	 * @param panel Panel to get children of
 	 */
 	private getChildPanels(panel: IOpenPanel): IOpenPanel[] {
-		return _.filter(this.openPanels, { parent: panel });
+		return this.openPanels.filter(p => p.parent === panel);
 	}
 
 	/**
@@ -582,7 +583,7 @@ export class PanelService implements IPanelService {
 	 * @param panelInstance Panel instance to search by
 	 */
 	private getPanelByInstance(panelInstance: IPanelInstance<IRouteParams>): IOpenPanel {
-		return _.find(this.openPanels, { instance: panelInstance });
+		return this.openPanels.find(p => p.instance === panelInstance);
 	}
 
 	/**
@@ -617,7 +618,7 @@ export class PanelService implements IPanelService {
 	 * Serialize all the panel's options objects into a string for use in the url
 	 */
 	private getOpenPanelUrl(): string {
-		return this.panelUrlService.createUrl(_.map(this.openPanels, (p: IOpenPanel) => { return p.instance; }));
+		return this.panelUrlService.createUrl(this.openPanels.map(panel => panel.instance));
 	}
 }
 
