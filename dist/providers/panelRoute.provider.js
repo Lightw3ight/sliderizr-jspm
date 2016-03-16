@@ -27,6 +27,7 @@ System.register(['angular'], function(exports_1, context_1) {
                     var route = typeof a === 'string' ? { redirectTo: a } : a;
                     return this.when(null, route);
                 };
+                // @ngInject
                 PanelRouteProvider.prototype.$get = function () {
                     return new PanelRouteService(this.routes, this.config);
                 };

@@ -11,7 +11,7 @@ var project = typescript.createProject({
 	noExternalResolve: false,
 	noEmitOnError: true,
 	target: 'ES5',
-	removeComments: true,
+	removeComments: false,
 	module: "system",
 });
 
