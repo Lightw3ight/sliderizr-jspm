@@ -1,3 +1,4 @@
+/*@ngInject*/
 function factory(): ng.IDirective {
 	var directive = <ng.IDirective>{
 		restrict: 'C',

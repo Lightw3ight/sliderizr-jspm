@@ -1,6 +1,7 @@
 import IPanelScope from '../models/IPanelScope';
 import IPanelRouteService from '../providers/IPanelRouteService';
 
+/*@ngInject*/
 function panelFactory($timeout: ng.ITimeoutService, panelRoute: IPanelRouteService): ng.IDirective {
 	var activeAnimationElement: JQuery;
 	var directive = <ng.IDirective>{

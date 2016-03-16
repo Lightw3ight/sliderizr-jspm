@@ -17,7 +17,8 @@ export class PanelService implements IPanelService {
 	private openPanels: IOpenPanel[];
 	private currentUrl: string;
 	private setActivePromise: ng.IPromise<void>;
-
+	
+	/*@ngInject*/
 	constructor(private $rootScope: ng.IRootScopeService,
 		private $controller: ng.IControllerService,
 		private $compile: ng.ICompileService,
