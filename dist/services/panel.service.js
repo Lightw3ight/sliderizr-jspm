@@ -54,6 +54,10 @@ System.register(['angular', '../models/PanelSize'], function(exports_1, context_
                 PanelService.prototype.close = function (panelInstance, result) {
                     var _this = this;
                     var panel = this.getPanelByInstance(panelInstance);
+                    // Dont allow us to close a panel that no longer exists 
+                    if (!panel) {
+                        return;
+                    }
                     this.closeBranch(panel).then(function () {
                         _this.updateUrl();
                         _this.setActive();

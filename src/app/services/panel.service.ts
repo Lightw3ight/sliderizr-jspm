@@ -59,6 +59,11 @@ export class PanelService implements IPanelService {
 	close(panelInstance: IPanelInstance<IRouteParams>, result: any) {
 		var panel = this.getPanelByInstance(panelInstance);
 
+		// Dont allow us to close a panel that no longer exists 
+		if (!panel){
+			return;
+		}
+
 		this.closeBranch(panel).then(() => {
 			this.updateUrl();
 			this.setActive();
