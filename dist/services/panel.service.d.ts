@@ -15,13 +15,14 @@ export declare class PanelService implements IPanelService {
     private $animate;
     private $timeout;
     private panelUrlService;
+    private $location;
     private $injector;
     private $sce;
     private $templateRequest;
     private openPanels;
     private currentUrl;
     private setActivePromise;
-    constructor($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, $compile: ng.ICompileService, panelRoute: IPanelRouteService, $q: ng.IQService, $animate: ng.animate.IAnimateService, $timeout: ng.ITimeoutService, panelUrlService: IPanelUrlService, $injector: ng.auto.IInjectorService, $sce: ng.ISCEService, $templateRequest: ng.ITemplateRequestService);
+    constructor($rootScope: ng.IRootScopeService, $controller: ng.IControllerService, $compile: ng.ICompileService, panelRoute: IPanelRouteService, $q: ng.IQService, $animate: ng.animate.IAnimateService, $timeout: ng.ITimeoutService, panelUrlService: IPanelUrlService, $location: ng.ILocationService, $injector: ng.auto.IInjectorService, $sce: ng.ISCEService, $templateRequest: ng.ITemplateRequestService);
     getActivePanel(): IPanelInstance<IRouteParams>;
     getAllOpenPanels(): IPanelInstance<IRouteParams>[];
     /**

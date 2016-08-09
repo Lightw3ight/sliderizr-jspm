@@ -27,6 +27,7 @@ export class PanelService implements IPanelService {
 		private $animate: ng.animate.IAnimateService,
 		private $timeout: ng.ITimeoutService,
 		private panelUrlService: IPanelUrlService,
+		private $location: ng.ILocationService,
 		private $injector: ng.auto.IInjectorService, private $sce: ng.ISCEService, private $templateRequest: ng.ITemplateRequestService) {
 		this.openPanels = [];
 
@@ -34,10 +35,12 @@ export class PanelService implements IPanelService {
 		this.loadPanelsFromPath();
 
 		//Listen to hash changes to update the panel layout
-		$(window).on('hashchange', (ev: any) => {
-			$rootScope.$apply(() => {
-				this.onLocationChanged();
-			});
+		$(window).on('hashchange', (ev: JQueryEventObject) => {
+			if (!this.panelUrlService.isUrlCurrent(this.currentUrl)){
+				$rootScope.$apply(() => {
+					this.onLocationChanged();
+				});
+			}
 		});
 	}
 
@@ -617,7 +620,7 @@ export class PanelService implements IPanelService {
 	 */
 	private updateUrl() {
 		this.currentUrl = this.getOpenPanelUrl();
-		window.location.hash = this.currentUrl;
+		this.$location.path(this.currentUrl);
 	}
 
 	/**

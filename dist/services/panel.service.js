@@ -15,8 +15,8 @@ System.register(['angular', '../models/PanelSize'], function(exports_1, context_
         execute: function() {
             PanelService = (function () {
                 /*@ngInject*/
-                PanelService.$inject = ["$rootScope", "$controller", "$compile", "panelRoute", "$q", "$animate", "$timeout", "panelUrlService", "$injector", "$sce", "$templateRequest"];
-                function PanelService($rootScope, $controller, $compile, panelRoute, $q, $animate, $timeout, panelUrlService, $injector, $sce, $templateRequest) {
+                PanelService.$inject = ["$rootScope", "$controller", "$compile", "panelRoute", "$q", "$animate", "$timeout", "panelUrlService", "$location", "$injector", "$sce", "$templateRequest"];
+                function PanelService($rootScope, $controller, $compile, panelRoute, $q, $animate, $timeout, panelUrlService, $location, $injector, $sce, $templateRequest) {
                     var _this = this;
                     this.$rootScope = $rootScope;
                     this.$controller = $controller;
@@ -26,6 +26,7 @@ System.register(['angular', '../models/PanelSize'], function(exports_1, context_
                     this.$animate = $animate;
                     this.$timeout = $timeout;
                     this.panelUrlService = panelUrlService;
+                    this.$location = $location;
                     this.$injector = $injector;
                     this.$sce = $sce;
                     this.$templateRequest = $templateRequest;
@@ -34,9 +35,11 @@ System.register(['angular', '../models/PanelSize'], function(exports_1, context_
                     this.loadPanelsFromPath();
                     //Listen to hash changes to update the panel layout
                     $(window).on('hashchange', function (ev) {
-                        $rootScope.$apply(function () {
-                            _this.onLocationChanged();
-                        });
+                        if (!_this.panelUrlService.isUrlCurrent(_this.currentUrl)) {
+                            $rootScope.$apply(function () {
+                                _this.onLocationChanged();
+                            });
+                        }
                     });
                 }
                 PanelService.prototype.getActivePanel = function () {
@@ -506,7 +509,7 @@ System.register(['angular', '../models/PanelSize'], function(exports_1, context_
                  */
                 PanelService.prototype.updateUrl = function () {
                     this.currentUrl = this.getOpenPanelUrl();
-                    window.location.hash = this.currentUrl;
+                    this.$location.path(this.currentUrl);
                 };
                 /**
                  * Serialize all the panel's options objects into a string for use in the url
